@@ -222,6 +222,17 @@ _mesa_get_current_tex_object(struct gl_context *ctx, GLenum target)
          return ctx->Extensions.ARB_texture_multisample
             ? ctx->Texture.ProxyTex[TEXTURE_2D_MULTISAMPLE_ARRAY_INDEX] : NULL;
       default:
+         if(_mesa_is_gles31(ctx))
+         {
+            /*
+             * According to OpenGL ES 3.1 CTS:
+             * ES31-CTS.texture_storage_multisample.APIGLGetTexLevelParameterifv.
+             * invalid_value_argument_rejected
+             * es31cTextureStorageMultisampleGetTexLevelParameterifvTests.cpp:1277
+             * INVALID_ENUM should be reported for bad targets.
+             */
+            _mesa_error(ctx, GL_INVALID_ENUM, "%s(target)", __func__);
+         }
          _mesa_problem(NULL, "bad target in _mesa_get_current_tex_object()");
          return NULL;
    }
