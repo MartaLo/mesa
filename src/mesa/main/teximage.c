@@ -5588,6 +5588,16 @@ _mesa_texture_image_multisample(struct gl_context *ctx, GLuint dims,
    GLenum sample_count_error;
    bool dsa = strstr(func, "ture") ? true : false;
 
+   /*
+    *  According to OpenGL ES 3.1 CTS zero samples
+    *  should generate GL_INVALID_VALUE
+    */
+   if(samples == 0 && _mesa_is_gles31(ctx))
+   {
+      _mesa_error(ctx, GL_INVALID_VALUE, "%s(target)", func);
+      return;
+   }
+
    if (!((ctx->Extensions.ARB_texture_multisample
          && _mesa_is_desktop_gl(ctx))) && !_mesa_is_gles31(ctx)) {
       _mesa_error(ctx, GL_INVALID_OPERATION, "%s(unsupported)", func);
