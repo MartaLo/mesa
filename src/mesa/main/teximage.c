@@ -1483,6 +1483,13 @@ _mesa_legal_texture_dimensions(struct gl_context *ctx, GLenum target,
          if (height > 0 && !_mesa_is_pow_two(height - 2 * border))
             return GL_FALSE;
       }
+      /*
+      *  according to GLES 3.1 CTS it is not OK with
+      *  zero size multisampled textures
+      */
+      if (width == 0 && height == 0 && GL_TEXTURE_2D_MULTISAMPLE == target)
+         return GL_FALSE;
+
       return GL_TRUE;
 
    case GL_TEXTURE_3D:
