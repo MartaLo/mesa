@@ -5617,6 +5617,14 @@ _mesa_texture_image_multisample(struct gl_context *ctx, GLuint dims,
    }
 
    if (!is_renderable_texture_format(ctx, internalformat)) {
+      /* Accroding to OpenGL ES CTS, internal format error,
+       * should generate GL_INVALID_ENUM.
+       */
+      if(_mesa_is_gles31(ctx))
+       _mesa_error(ctx, GL_INVALID_ENUM,
+            "%s(internalformat=%s)",
+            func, _mesa_lookup_enum_by_nr(internalformat));
+      else
       _mesa_error(ctx, GL_INVALID_OPERATION,
             "%s(internalformat=%s)",
             func, _mesa_lookup_enum_by_nr(internalformat));
