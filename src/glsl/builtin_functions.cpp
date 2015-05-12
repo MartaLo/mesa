@@ -270,8 +270,7 @@ texture_array(const _mesa_glsl_parse_state *state)
 static bool
 texture_multisample(const _mesa_glsl_parse_state *state)
 {
-   return state->is_version(150, 0) ||
-          state->ARB_texture_multisample_enable;
+   return state->has_texture_multisample();
 }
 
 static bool

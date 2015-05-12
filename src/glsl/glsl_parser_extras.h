@@ -221,6 +221,11 @@ struct _mesa_glsl_parse_state {
          || EXT_separate_shader_objects_enable;
    }
 
+   bool has_texture_multisample() const
+   {
+      return ARB_texture_multisample_enable || is_version(150, 310);
+   }
+
    bool has_double() const
    {
       return ARB_gpu_shader_fp64_enable || is_version(400, 0);

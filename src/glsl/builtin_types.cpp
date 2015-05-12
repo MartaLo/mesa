@@ -307,7 +307,7 @@ _mesa_glsl_initialize_types(struct _mesa_glsl_parse_state *state)
       add_type(symbols, glsl_type::usamplerCubeArray_type);
    }
 
-   if (state->ARB_texture_multisample_enable) {
+   if (state->has_texture_multisample()) {
       add_type(symbols, glsl_type::sampler2DMS_type);
       add_type(symbols, glsl_type::isampler2DMS_type);
       add_type(symbols, glsl_type::usampler2DMS_type);

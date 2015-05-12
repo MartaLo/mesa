@@ -341,12 +341,13 @@ usampler2DArray		KEYWORD(130, 300, 130, 300, USAMPLER2DARRAY);
 
    /* additional keywords in ARB_texture_multisample, included in GLSL 1.50 */
    /* these are reserved but not defined in GLSL 3.00 */
-sampler2DMS        KEYWORD_WITH_ALT(150, 300, 150, 0, yyextra->ARB_texture_multisample_enable, SAMPLER2DMS);
-isampler2DMS       KEYWORD_WITH_ALT(150, 300, 150, 0, yyextra->ARB_texture_multisample_enable, ISAMPLER2DMS);
-usampler2DMS       KEYWORD_WITH_ALT(150, 300, 150, 0, yyextra->ARB_texture_multisample_enable, USAMPLER2DMS);
-sampler2DMSArray   KEYWORD_WITH_ALT(150, 300, 150, 0, yyextra->ARB_texture_multisample_enable, SAMPLER2DMSARRAY);
-isampler2DMSArray  KEYWORD_WITH_ALT(150, 300, 150, 0, yyextra->ARB_texture_multisample_enable, ISAMPLER2DMSARRAY);
-usampler2DMSArray  KEYWORD_WITH_ALT(150, 300, 150, 0, yyextra->ARB_texture_multisample_enable, USAMPLER2DMSARRAY);
+   /* these are needed for GLES 3.1 */
+sampler2DMS        KEYWORD_WITH_ALT(150, 300, 150, 310, yyextra->ARB_texture_multisample_enable, SAMPLER2DMS);
+isampler2DMS       KEYWORD_WITH_ALT(150, 300, 150, 310, yyextra->ARB_texture_multisample_enable, ISAMPLER2DMS);
+usampler2DMS       KEYWORD_WITH_ALT(150, 300, 150, 310, yyextra->ARB_texture_multisample_enable, USAMPLER2DMS);
+sampler2DMSArray   KEYWORD_WITH_ALT(150, 300, 150, 310, yyextra->ARB_texture_multisample_enable, SAMPLER2DMSARRAY);
+isampler2DMSArray  KEYWORD_WITH_ALT(150, 300, 150, 310, yyextra->ARB_texture_multisample_enable, ISAMPLER2DMSARRAY);
+usampler2DMSArray  KEYWORD_WITH_ALT(150, 300, 150, 310, yyextra->ARB_texture_multisample_enable, USAMPLER2DMSARRAY);
 
    /* keywords available with ARB_texture_cube_map_array_enable extension on desktop GLSL */
 samplerCubeArray   KEYWORD_WITH_ALT(400, 0, 400, 0, yyextra->ARB_texture_cube_map_array_enable, SAMPLERCUBEARRAY);
