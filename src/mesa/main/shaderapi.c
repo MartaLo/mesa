@@ -1890,6 +1890,15 @@ _mesa_create_shader_program(struct gl_context* ctx, GLboolean separate,
    const GLuint shader = create_shader(ctx, type);
    GLuint program = 0;
 
+   /*
+    * According to OpenGL ES 3.1 standard 7.3: GL_INVALID_VALUE
+    * should be generated, if count < 0.
+    */
+   if (_mesa_is_gles31(ctx) && count < 0) {
+      _mesa_error(ctx, GL_INVALID_VALUE, "glCreateShaderProgram (count < 0)");
+      return program;
+   }
+
    if (shader) {
       _mesa_ShaderSource(shader, count, strings, NULL);
 
