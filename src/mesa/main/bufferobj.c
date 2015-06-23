@@ -123,6 +123,13 @@ get_buffer_target(struct gl_context *ctx, GLenum target)
          return &ctx->ExternalVirtualMemoryBuffer;
       }
       break;
+   case GL_SHADER_STORAGE_BUFFER:
+     /* if (ctx->Extensions.ARB_shader_storage_buffer_object) {
+         return &ctx->ShaderStorageBuffer;
+      }*/
+      printf("%s WARNING BINDING UNSUPPORTED BUFFER: GL_SHADER_STORAGE_BUFFER\n", __func__);
+      return &ctx->DrawIndirectBuffer;
+      break;
    case GL_DISPATCH_INDIRECT_BUFFER:
       printf("%s WARNING BINDING UNSUPPORTED BUFFER: GL_DISPATCH_INDIRECT_BUFFER\n", __func__);
       return &ctx->DrawIndirectBuffer;      
