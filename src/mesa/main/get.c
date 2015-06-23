@@ -1491,6 +1491,12 @@ _mesa_GetIntegerv(GLenum pname, GLint *params)
    int shift, i;
    void *p;
 
+   if (GL_MAX_SHADER_STORAGE_BUFFER_BINDINGS == pname) {
+      printf("%s WARNING GL_MAX_SHADER_STORAGE_BUFFER_BINDINGS NOT SUPPORTED\n", __func__);
+      params[0] = 0;
+      return;
+   }
+   
    d = find_value("glGetIntegerv", pname, &p, &v);
    switch (d->type) {
    case TYPE_INVALID:
