@@ -123,6 +123,9 @@ get_buffer_target(struct gl_context *ctx, GLenum target)
          return &ctx->ExternalVirtualMemoryBuffer;
       }
       break;
+   case GL_DISPATCH_INDIRECT_BUFFER:
+      printf("%s WARNING BINDING UNSUPPORTED BUFFER: GL_DISPATCH_INDIRECT_BUFFER\n", __func__);
+      return &ctx->DrawIndirectBuffer;      
    default:
       return NULL;
    }
