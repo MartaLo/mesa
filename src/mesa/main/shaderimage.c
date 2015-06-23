@@ -653,3 +653,12 @@ _mesa_MemoryBarrier(GLbitfield barriers)
    if (ctx->Driver.MemoryBarrier)
       ctx->Driver.MemoryBarrier(ctx, barriers);
 }
+
+void GLAPIENTRY
+_mesa_MemoryBarrierByRegion(GLbitfield barriers)
+{
+   GET_CURRENT_CONTEXT(ctx);
+
+   if (ctx->Driver.MemoryBarrier)
+      ctx->Driver.MemoryBarrier(ctx, barriers);
+}

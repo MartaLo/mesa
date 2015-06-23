@@ -2455,7 +2455,7 @@ const struct function gles31_functions_possible[] = {
    { "glMemoryBarrier", 31, -1 },
 
    // FINISHME: This function has not been implemented yet.
-   // { "glMemoryBarrierByRegion", 31, -1 },
+   { "glMemoryBarrierByRegion", 31, -1 },
 
    { "glTexStorage2DMultisample", 31, -1 },
    { "glGetMultisamplefv", 31, -1 },

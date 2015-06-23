@@ -1012,6 +1012,12 @@ struct dd_function_table {
    /*@{*/
    void (*DispatchCompute)(struct gl_context *ctx, const GLuint *num_groups);
    /*@}*/
+   /**
+    * \name GL_MemoryBarrierByRegion
+    */
+   /*@{*/
+   void (*MemoryBarrierByRegion)(struct gl_context *ctx, GLbitfield barriers);
+   /*@}*/
 };
 
 
