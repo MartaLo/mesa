@@ -567,6 +567,8 @@ struct _mesa_glsl_parse_state {
    bool AMD_vertex_shader_viewport_index_warn;
    bool EXT_draw_buffers_enable;
    bool EXT_draw_buffers_warn;
+   bool OES_geometry_shader_enable;
+   bool OES_geometry_shader_warn;
    bool EXT_separate_shader_objects_enable;
    bool EXT_separate_shader_objects_warn;
    bool EXT_shader_integer_mix_enable;

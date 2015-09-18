@@ -611,7 +611,7 @@ builtin_variable_generator::generate_constants()
       add_const("gl_MaxVaryingComponents", state->ctx->Const.MaxVarying * 4);
    }
 
-   if (state->is_version(150, 0)) {
+   if (state->is_version(150, 0) || state->OES_geometry_shader_enable) {
       add_const("gl_MaxVertexOutputComponents",
                 state->Const.MaxVertexOutputComponents);
       add_const("gl_MaxGeometryInputComponents",
@@ -674,10 +674,7 @@ builtin_variable_generator::generate_constants()
       add_const("gl_MaxAtomicCounterBindings",
                 state->Const.MaxAtomicBufferBindings);
 
-      /* When Mesa adds support for GL_OES_geometry_shader and
-       * GL_OES_tessellation_shader, this will need to change.
-       */
-      if (!state->es_shader) {
+      if (!state->es_shader || state->OES_geometry_shader_enable) {
          add_const("gl_MaxGeometryAtomicCounters",
                    state->Const.MaxGeometryAtomicCounters);
 
@@ -701,10 +698,7 @@ builtin_variable_generator::generate_constants()
       add_const("gl_MaxAtomicCounterBufferSize",
                 state->Const.MaxAtomicCounterBufferSize);
 
-      /* When Mesa adds support for GL_OES_geometry_shader and
-       * GL_OES_tessellation_shader, this will need to change.
-       */
-      if (!state->es_shader) {
+      if (!state->es_shader || state->OES_geometry_shader_enable) {
          add_const("gl_MaxGeometryAtomicCounterBuffers",
                    state->Const.MaxGeometryAtomicCounterBuffers);
          add_const("gl_MaxTessControlAtomicCounterBuffers",
@@ -762,7 +756,7 @@ builtin_variable_generator::generate_constants()
       add_const("gl_MaxCombinedImageUniforms",
                 state->Const.MaxCombinedImageUniforms);
 
-      if (!state->es_shader) {
+      if (!state->es_shader || state->OES_geometry_shader_enable) {
          add_const("gl_MaxCombinedImageUnitsAndFragmentOutputs",
                    state->Const.MaxCombinedShaderOutputResources);
          add_const("gl_MaxImageSamples",
@@ -993,7 +987,7 @@ builtin_variable_generator::generate_fs_special_vars()
    if (state->is_version(120, 100))
       add_input(VARYING_SLOT_PNTC, vec2_t, "gl_PointCoord");
 
-   if (state->is_version(150, 0)) {
+   if (state->is_version(150, 0) || state->OES_geometry_shader_enable) {
       ir_variable *var =
          add_input(VARYING_SLOT_PRIMITIVE_ID, int_t, "gl_PrimitiveID");
       var->data.interpolation = INTERP_QUALIFIER_FLAT;

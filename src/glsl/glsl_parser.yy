@@ -1250,7 +1250,7 @@ layout_qualifier_id:
             }
          }
 
-         if ($$.flags.i && !state->is_version(150, 0)) {
+         if ($$.flags.i && !state->is_version(150, 310)) {
             _mesa_glsl_error(& @1, state, "#version 150 layout "
                              "qualifier `%s' used", $1);
          }
@@ -1491,7 +1491,7 @@ layout_qualifier_id:
             YYERROR;
          } else {
             $$.max_vertices = $3;
-            if (!state->is_version(150, 0)) {
+            if (!state->is_version(150, 310)) {
                _mesa_glsl_error(& @3, state,
                                 "#version 150 max_vertices qualifier "
                                 "specified", $3);
