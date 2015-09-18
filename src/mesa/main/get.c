@@ -454,6 +454,24 @@ static const int extra_gl32_ARB_geometry_shader4[] = {
     EXTRA_END
 };
 
+static const int extra_ARB_geometry_shader4_OES_geometry_shader[] = {
+    EXTRA_VERSION_32,
+    EXT(ARB_geometry_shader4),
+    EXT(OES_geometry_shader),
+    EXTRA_END
+};
+
+static const int extra_version_32_OES_geometry_shader[] = {
+    EXTRA_VERSION_32,
+    EXT(OES_geometry_shader),
+    EXTRA_END
+};
+
+static const int extra_ARB_viewport_array_OES_geometry_shader[] = {
+    EXT(ARB_viewport_array),
+    EXT(OES_geometry_shader),
+    EXTRA_END
+};
 static const int extra_gl40_ARB_sample_shading[] = {
    EXTRA_VERSION_40,
    EXT(ARB_sample_shading),
