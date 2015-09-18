@@ -314,6 +314,7 @@ static const struct extension extension_table[] = {
    { "GL_OES_fbo_render_mipmap",                   o(dummy_true),                                   ES1 | ES2, 2005 },
    { "GL_OES_fixed_point",                         o(dummy_true),                                   ES1,       2002 },
    { "GL_OES_framebuffer_object",                  o(dummy_true),                                   ES1,       2005 },
+   { "GL_OES_geometry_shader",                     o(OES_geometry_shader),                               ES31, 2015 },
    { "GL_OES_get_program_binary",                  o(dummy_true),                                         ES2, 2008 },
    { "GL_OES_mapbuffer",                           o(dummy_true),                                   ES1 | ES2, 2005 },
    { "GL_OES_packed_depth_stencil",                o(dummy_true),                                   ES1 | ES2, 2007 },
