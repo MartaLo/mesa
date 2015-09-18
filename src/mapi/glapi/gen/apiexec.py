@@ -72,7 +72,7 @@ functions = {
 
     # OpenGL 3.2 / GL_ARB_geometry_shader4.  Mesa does not support
     # GL_ARB_geometry_shader4, so OpenGL 3.2 is required.
-    "FramebufferTexture": exec_info(core=32),
+    "FramebufferTexture": exec_info(core=32, es2=31),
 
     # OpenGL 4.0 / GL_ARB_shader_subroutines. Mesa only exposes this
     # extension with core profile.
