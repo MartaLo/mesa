@@ -4590,6 +4590,20 @@ link_shaders(struct gl_context *ctx, struct gl_shader_program *prog)
                         &prog->ShaderStorageBlocks,
                         &prog->NumShaderStorageBlocks);
 
+   prog->UboInterfaceBlockIndex =
+      ralloc_array(prog, int, prog->NumUniformBlocks);
+   prog->SsboInterfaceBlockIndex =
+      ralloc_array(prog, int, prog->NumShaderStorageBlocks);
+   for (unsigned i = 0, u = 0, s = 0;
+        i < prog->NumBufferInterfaceBlocks;
+        i++) {
+      if (prog->BufferInterfaceBlocks[i].IsShaderStorage) {
+         prog->SsboInterfaceBlockIndex[s++] = i;
+      } else {
+         prog->UboInterfaceBlockIndex[u++] = i;
+      }
+   }
+
    /* FINISHME: Assign fragment shader output locations. */
 
    for (unsigned i = 0; i < MESA_SHADER_STAGES; i++) {
