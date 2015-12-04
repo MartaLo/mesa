@@ -4770,8 +4770,8 @@ get_texbuffer_format(const struct gl_context *ctx, GLenum internalFormat)
       }
    }
 
-   if (ctx->API == API_OPENGL_CORE &&
-       ctx->Extensions.ARB_texture_buffer_object_rgb32) {
+   if ((ctx->API == API_OPENGL_CORE &&
+       ctx->Extensions.ARB_texture_buffer_object_rgb32) || ctx->Extensions.OES_texture_buffer) {
       switch (internalFormat) {
       case GL_RGB32F:
          return MESA_FORMAT_RGB_FLOAT32;
