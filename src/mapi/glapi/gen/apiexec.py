@@ -68,7 +68,7 @@ class exec_info():
 functions = {
     # OpenGL 3.1 / GL_ARB_texture_buffer_object.  Mesa only exposes this
     # extension with core profile.
-    "TexBuffer": exec_info(core=31),
+    "TexBuffer": exec_info(core=31, es2=31),
 
     # OpenGL 3.2 / GL_ARB_geometry_shader4.  Mesa does not support
     # GL_ARB_geometry_shader4, so OpenGL 3.2 is required.
@@ -147,7 +147,7 @@ functions = {
 
     # OpenGL 4.3 / GL_ARB_texture_buffer_range.  Mesa can expose the extension
     # with OpenGL 3.1.
-    "TexBufferRange": exec_info(core=31),
+    "TexBufferRange": exec_info(core=31, es2=31),
 
     # OpenGL 4.3 / GL_ARB_framebuffer_no_attachments.  Mesa can expose the
     # extension with OpenGL 3.0.

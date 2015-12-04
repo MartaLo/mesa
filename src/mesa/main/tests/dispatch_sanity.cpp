@@ -2524,5 +2524,9 @@ const struct function gles31_functions_possible[] = {
    /* GL_EXT_blend_func_extended */
    { "glGetProgramResourceLocationIndexEXT", 31, -1 },
 
+   /* GL_OES_texture_buffer */
+   { "glTexBufferOES", 31, -1 },
+   { "glTexBufferRangeOES", 31, -1 },
+
    { NULL, 0, -1 },
  };
