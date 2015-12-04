@@ -128,11 +128,11 @@ v130_fs_only(const _mesa_glsl_parse_state *state)
    return state->is_version(130, 300) &&
           state->stage == MESA_SHADER_FRAGMENT;
 }
-
+//TODO rename this to something more relevant
 static bool
 v140(const _mesa_glsl_parse_state *state)
 {
-   return state->is_version(140, 0);
+   return state->is_version(140, 320) || state->OES_texture_buffer_enable;
 }
 
 static bool
@@ -1813,6 +1813,7 @@ builtin_builder::create_builtins()
                 _texelFetch(v130, glsl_type::uvec4_type, glsl_type::usampler2DArray_type, glsl_type::ivec3_type),
 
                 _texelFetch(v140, glsl_type::vec4_type,  glsl_type::samplerBuffer_type,  glsl_type::int_type),
+                
                 _texelFetch(v140, glsl_type::ivec4_type, glsl_type::isamplerBuffer_type, glsl_type::int_type),
                 _texelFetch(v140, glsl_type::uvec4_type, glsl_type::usamplerBuffer_type, glsl_type::int_type),
 
