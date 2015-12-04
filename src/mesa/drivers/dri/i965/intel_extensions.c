@@ -175,6 +175,7 @@ intelInitExtensions(struct gl_context *ctx)
 
    assert(brw->gen >= 4);
 
+   ctx->Extensions.OES_texture_buffer = true;
    ctx->Extensions.ARB_arrays_of_arrays = true;
    ctx->Extensions.ARB_buffer_storage = true;
    ctx->Extensions.ARB_clear_texture = true;
