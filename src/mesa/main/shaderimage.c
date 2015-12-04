@@ -535,19 +535,17 @@ _mesa_BindImageTexture(GLuint unit, GLuint texture, GLint level,
          _mesa_error(ctx, GL_INVALID_VALUE, "glBindImageTexture(texture)");
          return;
       }
-
       /* From section 8.22 "Texture Image Loads and Stores" of the OpenGL ES
        * 3.1 spec:
        *
        * "An INVALID_OPERATION error is generated if texture is not the name
        *  of an immutable texture object."
        */
-      if (_mesa_is_gles(ctx) && !t->Immutable) {
+      if (_mesa_is_gles(ctx) && !t->Immutable && !ctx->Extensions.OES_texture_buffer) {
          _mesa_error(ctx, GL_INVALID_OPERATION,
                      "glBindImageTexture(!immutable)");
          return;
       }
-
       _mesa_reference_texobj(&u->TexObj, t);
    } else {
       _mesa_reference_texobj(&u->TexObj, NULL);
