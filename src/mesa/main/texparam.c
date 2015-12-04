@@ -1227,9 +1227,10 @@ legal_get_tex_level_parameter_target(struct gl_context *ctx, GLenum target,
       return ctx->Extensions.ARB_texture_multisample;
    }
 
-   if (!_mesa_is_desktop_gl(ctx))
+   /* TODO sort this out
+  if (!_mesa_is_desktop_gl(ctx))
       return GL_FALSE;
-
+   */
    /* Rest of the desktop GL targets. */
    switch (target) {
    case GL_TEXTURE_1D:
@@ -1267,7 +1268,8 @@ legal_get_tex_level_parameter_target(struct gl_context *ctx, GLenum target,
        * From the OpenGL 3.1 spec:
        * "target may also be TEXTURE_BUFFER, indicating the texture buffer."
        */
-      return ctx->API == API_OPENGL_CORE && ctx->Version >= 31;
+      // TODO use Nanley
+      return (ctx->API == API_OPENGL_CORE && ctx->Version >= 31) || ctx->Extensions.OES_texture_buffer;
    case GL_PROXY_TEXTURE_2D_MULTISAMPLE:
    case GL_PROXY_TEXTURE_2D_MULTISAMPLE_ARRAY:
       return ctx->Extensions.ARB_texture_multisample;
@@ -1527,11 +1529,13 @@ get_tex_level_parameter_buffer(struct gl_context *ctx,
 
       /* GL_ARB_texture_buffer_range */
       case GL_TEXTURE_BUFFER_OFFSET:
+         // TODO
          if (!ctx->Extensions.ARB_texture_buffer_range)
             goto invalid_pname;
          *params = texObj->BufferOffset;
          break;
       case GL_TEXTURE_BUFFER_SIZE:
+         //TODO
          if (!ctx->Extensions.ARB_texture_buffer_range)
             goto invalid_pname;
          *params = (texObj->BufferSize == -1) ? bo->Size : texObj->BufferSize;

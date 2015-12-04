@@ -495,8 +495,8 @@ _mesa_max_texture_levels(struct gl_context *ctx, GLenum target)
       return ctx->Extensions.ARB_texture_cube_map_array
          ? ctx->Const.MaxCubeTextureLevels : 0;
    case GL_TEXTURE_BUFFER:
-      return ctx->API == API_OPENGL_CORE &&
-             ctx->Extensions.ARB_texture_buffer_object ? 1 : 0;
+      return ((ctx->API == API_OPENGL_CORE &&
+         ctx->Extensions.ARB_texture_buffer_object) || ctx->Extensions.OES_texture_buffer) ? 1 : 0;
    case GL_TEXTURE_2D_MULTISAMPLE:
    case GL_PROXY_TEXTURE_2D_MULTISAMPLE:
    case GL_TEXTURE_2D_MULTISAMPLE_ARRAY:
@@ -4908,7 +4908,7 @@ _mesa_texture_buffer_range(struct gl_context *ctx,
     * the compatibility profile that are not implemented.
     */
    if (!(ctx->API == API_OPENGL_CORE &&
-         ctx->Extensions.ARB_texture_buffer_object)) {
+         ctx->Extensions.ARB_texture_buffer_object) && !ctx->Extensions.OES_texture_buffer) {
       _mesa_error(ctx, GL_INVALID_OPERATION,
                   "%s(ARB_texture_buffer_object is not"
                   " implemented for the compatibility profile)", caller);

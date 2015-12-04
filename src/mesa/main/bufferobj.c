@@ -143,8 +143,8 @@ get_buffer_target(struct gl_context *ctx, GLenum target)
       }
       break;
    case GL_TEXTURE_BUFFER:
-      if (ctx->API == API_OPENGL_CORE &&
-          ctx->Extensions.ARB_texture_buffer_object) {
+      if ((ctx->API == API_OPENGL_CORE &&
+           ctx->Extensions.ARB_texture_buffer_object) || ctx->Extensions.OES_texture_buffer) { //TODO use Nanleys helper
          return &ctx->Texture.BufferObject;
       }
       break;
