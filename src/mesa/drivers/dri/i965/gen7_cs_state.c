@@ -68,7 +68,7 @@ brw_upload_cs_state(struct brw_context *brw)
 
    uint32_t *bind = (uint32_t*) brw_state_batch(brw, AUB_TRACE_BINDING_TABLE,
                                             prog_data->binding_table.size_bytes,
-                                            32, &stage_state->bind_bo_offset);
+                                            64, &stage_state->bind_bo_offset);
 
    unsigned local_id_dwords = 0;
 
@@ -77,7 +77,8 @@ brw_upload_cs_state(struct brw_context *brw)
 
    unsigned push_constant_data_size =
       (prog_data->nr_params + local_id_dwords) * sizeof(gl_constant_value);
-   unsigned reg_aligned_constant_size = ALIGN(push_constant_data_size, 32);
+   unsigned reg_aligned_constant_size =
+      ALIGN(push_constant_data_size, brw->gen < 8 ? 32 : 64);
    unsigned push_constant_regs = reg_aligned_constant_size / 32;
    unsigned threads = get_cs_thread_count(cs_prog_data);
 
@@ -138,11 +139,13 @@ brw_upload_cs_state(struct brw_context *brw)
    ADVANCE_BATCH();
 
    if (reg_aligned_constant_size > 0) {
+      const unsigned aligned_push_const_offset =
+         ALIGN(stage_state->push_const_offset, brw->gen < 8 ? 32 : 64);
       BEGIN_BATCH(4);
       OUT_BATCH(MEDIA_CURBE_LOAD << 16 | (4 - 2));
       OUT_BATCH(0);
       OUT_BATCH(reg_aligned_constant_size * threads);
-      OUT_BATCH(stage_state->push_const_offset);
+      OUT_BATCH(aligned_push_const_offset);
       ADVANCE_BATCH();
    }
 
@@ -241,7 +244,8 @@ brw_upload_cs_push_constants(struct brw_context *brw,
 
       const unsigned push_constant_data_size =
          (local_id_dwords + prog_data->nr_params) * sizeof(gl_constant_value);
-      const unsigned reg_aligned_constant_size = ALIGN(push_constant_data_size, 32);
+      const unsigned reg_aligned_constant_size =
+         ALIGN(push_constant_data_size, brw->gen < 8 ? 32 : 64);
       const unsigned param_aligned_count =
          reg_aligned_constant_size / sizeof(*param);
 
