@@ -868,6 +868,23 @@ brw_emit_select_pipeline(struct brw_context *brw, enum brw_pipeline pipeline)
    const uint32_t _3DSTATE_PIPELINE_SELECT =
       is_965 ? CMD_PIPELINE_SELECT_965 : CMD_PIPELINE_SELECT_GM45;
 
+
+   if (brw->gen == 7) {
+      brw_emit_pipe_control_flush(brw,
+                                  PIPE_CONTROL_RENDER_TARGET_FLUSH |
+                                  PIPE_CONTROL_DEPTH_CACHE_FLUSH |
+                                  PIPE_CONTROL_DATA_CACHE_INVALIDATE |
+                                  PIPE_CONTROL_NO_WRITE |
+                                  PIPE_CONTROL_CS_STALL);
+
+      brw_emit_pipe_control_flush(brw,
+                                  PIPE_CONTROL_TEXTURE_CACHE_INVALIDATE |
+                                  PIPE_CONTROL_CONST_CACHE_INVALIDATE |
+                                  PIPE_CONTROL_STATE_CACHE_INVALIDATE |
+                                  PIPE_CONTROL_INSTRUCTION_INVALIDATE |
+                                  PIPE_CONTROL_NO_WRITE);
+   }
+
    /* Select the pipeline */
    BEGIN_BATCH(1);
    OUT_BATCH(_3DSTATE_PIPELINE_SELECT << 16 |
