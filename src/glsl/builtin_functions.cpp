@@ -4894,7 +4894,11 @@ builtin_builder::_bitfieldExtract(const glsl_type *type)
    ir_variable *bits   = in_var(glsl_type::int_type, "bits");
    MAKE_SIG(type, gpu_shader5_or_es31, 3, value, offset, bits);
 
-   body.emit(ret(expr(ir_triop_bitfield_extract, value, offset, bits)));
+   ir_if *if_32 = new(mem_ctx) ir_if(greater(bits, imm(31)));
+   if_32->then_instructions.push_tail(ret(rshift(value, offset)));
+   if_32->else_instructions.push_tail(
+      ret(expr(ir_triop_bitfield_extract, value, offset, bits)));
+   body.emit(if_32);
 
    return sig;
 }
