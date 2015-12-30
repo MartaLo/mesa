@@ -359,10 +359,9 @@ lower_instructions_visitor::bitfield_insert_to_bfm_bfi(ir_expression *ir)
    ir_rvalue *base_expr = ir->operands[0];
 
    ir->operation = ir_triop_bfi;
-   ir->operands[0] = new(ir) ir_expression(ir_binop_bfm,
-                                           ir->type->get_base_type(),
-                                           ir->operands[3],
-                                           ir->operands[2]);
+   ir->operands[0] = lshift(rshift(new(ir) ir_constant(~0u),
+                                   sub(new(ir) ir_constant(32), ir->operands[3])),
+                            ir->operands[2]);
    /* ir->operands[1] is still the value to insert. */
    ir->operands[2] = base_expr;
    ir->operands[3] = NULL;
