@@ -1744,6 +1744,11 @@ vertex_array_vertex_buffer(struct gl_context *ctx,
    } else if (buffer != 0) {
       vbo = _mesa_lookup_bufferobj(ctx, buffer);
 
+      if (!vbo && _mesa_is_gles31(ctx)) {
+         _mesa_error(ctx, GL_INVALID_OPERATION, "%s(non-gen name)", func);
+         return;
+      }
+      
       /* From the GL_ARB_vertex_attrib_array spec:
        *
        *   "[Core profile only:]
@@ -1754,8 +1759,10 @@ vertex_array_vertex_buffer(struct gl_context *ctx,
        * Otherwise, we fall back to the same compat profile behavior as other
        * object references (automatically gen it).
        */
-      if (!_mesa_handle_bind_buffer_gen(ctx, buffer, &vbo, func))
-         return;
+      if (!_mesa_handle_bind_buffer_gen(ctx, buffer, &vbo, func)) {
+          return;
+      }
+
    } else {
       /* The ARB_vertex_attrib_binding spec says:
        *
