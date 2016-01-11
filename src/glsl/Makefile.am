@@ -46,6 +46,7 @@ EXTRA_DIST = tests glcpp/tests README TODO glcpp/README	\
 	nir/nir_algebraic.py				\
 	nir/nir_builder_opcodes_h.py			\
 	nir/nir_constant_expressions.py			\
+	nir/nir_fixup_bitfield_insert_extract.py	\
 	nir/nir_opcodes.py				\
 	nir/nir_opcodes_c.py				\
 	nir/nir_opcodes_h.py				\
@@ -264,6 +265,10 @@ nir/nir_opcodes.c: nir/nir_opcodes.py nir/nir_opcodes_c.py
 nir/nir_opt_algebraic.c: nir/nir_opt_algebraic.py nir/nir_algebraic.py
 	$(MKDIR_GEN)
 	$(PYTHON_GEN) $(srcdir)/nir/nir_opt_algebraic.py > $@ || ($(RM) $@; false)
+
+nir/nir_fixup_bitfield_insert_extract.c: nir/nir_fixup_bitfield_insert_extract.py nir/nir_algebraic.py
+	$(MKDIR_GEN)
+	$(PYTHON_GEN) $(srcdir)/nir/nir_fixup_bitfield_insert_extract.py > $@ || ($(RM) $@; false)
 
 nir_tests_control_flow_tests_SOURCES =			\
 	nir/tests/control_flow_tests.cpp
