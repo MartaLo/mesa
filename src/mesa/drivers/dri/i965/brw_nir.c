@@ -469,6 +469,7 @@ brw_preprocess_nir(nir_shader *nir, bool is_scalar)
       .lower_txp = ~0,
    };
 
+   OPT(nir_fixup_bitfield_insert_extract);
    OPT(nir_lower_tex, &tex_options);
    OPT(nir_normalize_cubemap_coords);
 
