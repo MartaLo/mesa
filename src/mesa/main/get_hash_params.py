@@ -507,6 +507,10 @@ descriptor=[
   [ "TEXTURE_BUFFER_DATA_STORE_BINDING_ARB", "LOC_CUSTOM, TYPE_INT, TEXTURE_BUFFER_INDEX, extra_texture_buffer_object" ],
   [ "TEXTURE_BUFFER_FORMAT_ARB", "LOC_CUSTOM, TYPE_INT, 0, extra_texture_buffer_object" ],
   [ "TEXTURE_BUFFER_ARB", "LOC_CUSTOM, TYPE_INT, 0, extra_texture_buffer_object" ],
+
+# GL_ARB_texture_buffer_range / OES_texture_buffer
+  [ "TEXTURE_BUFFER_OFFSET_ALIGNMENT", "CONTEXT_INT(Const.TextureBufferOffsetAlignment), extra_ARB_texture_buffer_range" ],
+
 ]},
 
 # Remaining enums are only in OpenGL
@@ -841,8 +845,6 @@ descriptor=[
 
 # Enums restricted to OpenGL Core profile
 { "apis": ["GL_CORE"], "params": [
-# GL_ARB_texture_buffer_range
-  [ "TEXTURE_BUFFER_OFFSET_ALIGNMENT", "CONTEXT_INT(Const.TextureBufferOffsetAlignment), extra_ARB_texture_buffer_range" ],
 
 # GL_ARB_viewport_array
   [ "MAX_VIEWPORTS", "CONTEXT_INT(Const.MaxViewports), extra_ARB_viewport_array" ],
