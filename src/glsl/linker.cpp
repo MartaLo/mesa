@@ -3131,9 +3131,31 @@ check_explicit_uniform_locations(struct gl_context *ctx,
     */
    string_to_uint_map *uniform_map = new string_to_uint_map;
 
-   if (!uniform_map) {
+   /* This map is used to validate that uniforms with explicit location are
+    * given the same explicit location properly across shader stages which
+    * reference the same uniform without explicit location qualifier.
+    */
+   string_to_uint_map *explicit_map = new string_to_uint_map;
+
+   if (!uniform_map || !explicit_map) {
       linker_error(prog, "Out of memory during linking.\n");
       return;
+   }
+
+   /* A pass to generate hash that contains all uniforms where location
+    * has been set explicitly.
+    */
+   for (unsigned i = 0; i < MESA_SHADER_STAGES; i++) {
+      struct gl_shader *sh = prog->_LinkedShaders[i];
+      if (!sh)
+         continue;
+      foreach_in_list(ir_instruction, node, sh->ir) {
+         ir_variable *var = node->as_variable();
+         if (!var || var->data.mode != ir_var_uniform ||
+             !var->data.explicit_location)
+            continue;
+         explicit_map->put(var->data.location, var->name);
+      }
    }
 
    unsigned entries_total = 0;
@@ -3147,6 +3169,17 @@ check_explicit_uniform_locations(struct gl_context *ctx,
          ir_variable *var = node->as_variable();
          if (!var || var->data.mode != ir_var_uniform)
             continue;
+
+         /* Check if this uniform with implicit location was marked explicit
+          * by any shader stage. If so, mark it explicit in this stage too to
+          * make sure later processing does not treat it as implicit one.
+          */
+         unsigned hash_loc;
+         if (!var->data.explicit_location &&
+             explicit_map->get(hash_loc, var->name)) {
+            var->data.explicit_location = 1;
+            var->data.location = hash_loc;
+         }
 
          entries_total += var->type->uniform_locations();
 
@@ -3173,6 +3206,7 @@ check_explicit_uniform_locations(struct gl_context *ctx,
                    ctx->Const.MaxUserAssignableUniformLocations);
    }
    delete uniform_map;
+   delete explicit_map;
 }
 
 static bool
